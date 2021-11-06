@@ -213,6 +213,7 @@
     , unfinishedLongComment: 'unfinished long comment (starting at line %1) near \'%2\''
     , ambiguousSyntax: 'ambiguous syntax (function call x new statement) near \'%1\''
     , noLoopToBreak: 'no loop to break near \'%1\''
+    , noLoopToContinue: 'no loop to continue near \'%1\''
     , labelAlreadyDefined: 'label \'%1\' already defined on line %2'
     , labelNotVisible: 'no visible label \'%1\' for <goto>'
     , gotoJumpInLocalScope: '<goto %1> jumps into the scope of local \'%2\''
@@ -236,6 +237,12 @@
     , breakStatement: function() {
       return {
           type: 'BreakStatement'
+      };
+    }
+
+    , continueStatement: function() {
+      return {
+          type: 'ContinueStatement'
       };
     }
 
@@ -1817,6 +1824,10 @@
           if (!flowContext.isInLoop())
             raise(token, errors.noLoopToBreak, token.value);
           return parseBreakStatement();
+        case 'continue':    next();
+          if (!flowContext.isInLoop())
+            raise(token, errors.noLoopToContinue, token.value);
+          return parseContunueStatement();
         case 'do':       next(); return parseDoStatement(flowContext);
         case 'goto':     next(); return parseGotoStatement(flowContext);
       }
@@ -1858,6 +1869,11 @@
   function parseBreakStatement() {
     consume(';');
     return finishNode(ast.breakStatement());
+  }
+
+  function parseContunueStatement() {
+    consume(';');
+    return finishNode(ast.continueStatement());
   }
 
   //     goto ::= 'goto' Name
