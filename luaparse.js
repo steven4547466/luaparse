@@ -1435,7 +1435,7 @@
       case 6:
         return 'elseif' === id || 'repeat' === id || 'return' === id;
       case 8:
-        return 'function' === id;
+        return 'function' === id || 'continue' == id;
     }
     return false;
   }
@@ -1827,7 +1827,7 @@
         case 'continue':    next();
           if (!flowContext.isInLoop())
             raise(token, errors.noLoopToContinue, token.value);
-          return parseContunueStatement();
+          return parseContinueStatement();
         case 'do':       next(); return parseDoStatement(flowContext);
         case 'goto':     next(); return parseGotoStatement(flowContext);
       }
@@ -1871,7 +1871,7 @@
     return finishNode(ast.breakStatement());
   }
 
-  function parseContunueStatement() {
+  function parseContinueStatement() {
     consume(';');
     return finishNode(ast.continueStatement());
   }
