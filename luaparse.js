@@ -5,9 +5,9 @@
 
   // Used to determine if values are of the language type `Object`
   var objectTypes = {
-        'function': true
-      , 'object': true
-    }
+    'function': true
+    , 'object': true
+  }
     // Detect free variable `exports`
     , freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports
     // Detect free variable `module`
@@ -61,7 +61,7 @@
   // defaultOptions, or during the parse call.
   var defaultOptions = exports.defaultOptions = {
     // Explicitly tell the parser when the input ends.
-      wait: false
+    wait: false
     // Store comments as an array in the chunk object.
     , comments: true
     // Track identifier scopes by adding an isLocal attribute to each
@@ -97,21 +97,21 @@
       return String.fromCharCode(codepoint);
     } else if (codepoint < 0x800) {
       return String.fromCharCode(
-        highMask | 0xc0 |  (codepoint >>  6)        ,
-        highMask | 0x80 | ( codepoint        & 0x3f)
+        highMask | 0xc0 | (codepoint >> 6),
+        highMask | 0x80 | (codepoint & 0x3f)
       );
     } else if (codepoint < 0x10000) {
       return String.fromCharCode(
-        highMask | 0xe0 |  (codepoint >> 12)        ,
-        highMask | 0x80 | ((codepoint >>  6) & 0x3f),
-        highMask | 0x80 | ( codepoint        & 0x3f)
+        highMask | 0xe0 | (codepoint >> 12),
+        highMask | 0x80 | ((codepoint >> 6) & 0x3f),
+        highMask | 0x80 | (codepoint & 0x3f)
       );
     } else /* istanbul ignore else */ if (codepoint < 0x110000) {
       return String.fromCharCode(
-        highMask | 0xf0 |  (codepoint >> 18)        ,
+        highMask | 0xf0 | (codepoint >> 18),
         highMask | 0x80 | ((codepoint >> 12) & 0x3f),
-        highMask | 0x80 | ((codepoint >>  6) & 0x3f),
-        highMask | 0x80 | ( codepoint        & 0x3f)
+        highMask | 0x80 | ((codepoint >> 6) & 0x3f),
+        highMask | 0x80 | (codepoint & 0x3f)
       );
     } else {
       // TODO: Lua 5.4 allows up to six-byte sequences, as in UTF-8:1993
@@ -188,7 +188,8 @@
     , NumericLiteral = 16, Punctuator = 32, BooleanLiteral = 64
     , NilLiteral = 128, VarargLiteral = 256;
 
-  exports.tokenTypes = { EOF: EOF, StringLiteral: StringLiteral
+  exports.tokenTypes = {
+    EOF: EOF, StringLiteral: StringLiteral
     , Keyword: Keyword, Identifier: Identifier, NumericLiteral: NumericLiteral
     , Punctuator: Punctuator, BooleanLiteral: BooleanLiteral
     , NilLiteral: NilLiteral, VarargLiteral: VarargLiteral
@@ -198,7 +199,7 @@
   // will be different in some situations.
 
   var errors = exports.errors = {
-      unexpected: 'unexpected %1 \'%2\' near \'%3\''
+    unexpected: 'unexpected %1 \'%2\' near \'%3\''
     , unexpectedEOF: 'unexpected symbol near \'<eof>\''
     , expected: '\'%1\' expected near \'%2\''
     , expectedToken: '%1 expected near \'%2\''
@@ -227,115 +228,115 @@
   // easily be customized by overriding these functions.
 
   var ast = exports.ast = {
-      labelStatement: function(label) {
+    labelStatement: function (label) {
       return {
-          type: 'LabelStatement'
+        type: 'LabelStatement'
         , label: label
       };
     }
 
-    , breakStatement: function() {
+    , breakStatement: function () {
       return {
-          type: 'BreakStatement'
+        type: 'BreakStatement'
       };
     }
 
-    , continueStatement: function() {
+    , continueStatement: function () {
       return {
-          type: 'ContinueStatement'
+        type: 'ContinueStatement'
       };
     }
 
-    , gotoStatement: function(label) {
+    , gotoStatement: function (label) {
       return {
-          type: 'GotoStatement'
+        type: 'GotoStatement'
         , label: label
       };
     }
 
-    , returnStatement: function(args) {
+    , returnStatement: function (args) {
       return {
-          type: 'ReturnStatement'
+        type: 'ReturnStatement'
         , 'arguments': args
       };
     }
 
-    , ifStatement: function(clauses) {
+    , ifStatement: function (clauses) {
       return {
-          type: 'IfStatement'
+        type: 'IfStatement'
         , clauses: clauses
       };
     }
-    , ifClause: function(condition, body) {
+    , ifClause: function (condition, body) {
       return {
-          type: 'IfClause'
+        type: 'IfClause'
         , condition: condition
         , body: body
       };
     }
-    , elseifClause: function(condition, body) {
+    , elseifClause: function (condition, body) {
       return {
-          type: 'ElseifClause'
+        type: 'ElseifClause'
         , condition: condition
         , body: body
       };
     }
-    , elseClause: function(body) {
+    , elseClause: function (body) {
       return {
-          type: 'ElseClause'
+        type: 'ElseClause'
         , body: body
       };
     }
 
-    , whileStatement: function(condition, body) {
+    , whileStatement: function (condition, body) {
       return {
-          type: 'WhileStatement'
-        , condition: condition
-        , body: body
-      };
-    }
-
-    , doStatement: function(body) {
-      return {
-          type: 'DoStatement'
-        , body: body
-      };
-    }
-
-    , repeatStatement: function(condition, body) {
-      return {
-          type: 'RepeatStatement'
+        type: 'WhileStatement'
         , condition: condition
         , body: body
       };
     }
 
-    , localStatement: function(variables, init) {
+    , doStatement: function (body) {
       return {
-          type: 'LocalStatement'
+        type: 'DoStatement'
+        , body: body
+      };
+    }
+
+    , repeatStatement: function (condition, body) {
+      return {
+        type: 'RepeatStatement'
+        , condition: condition
+        , body: body
+      };
+    }
+
+    , localStatement: function (variables, init) {
+      return {
+        type: 'LocalStatement'
         , variables: variables
         , init: init
       };
     }
 
-    , assignmentStatement: function(variables, init) {
+    , assignmentStatement: function (variables, init) {
       return {
-          type: 'AssignmentStatement'
+        type: 'AssignmentStatement'
         , variables: variables
         , init: init
       };
     }
 
-    , callStatement: function(expression) {
+    , callStatement: function (expression) {
       return {
-          type: 'CallStatement'
+        type: 'CallStatement'
         , expression: expression
       };
     }
 
-    , functionStatement: function(identifier, parameters, isLocal, body) {
+    , functionStatement: function (identifier, parameters, isLocal, body) {
       return {
-          type: 'FunctionDeclaration'
+        type: 'FunctionDeclaration'
         , identifier: identifier
         , isLocal: isLocal
         , parameters: parameters
@@ -343,9 +344,9 @@
       };
     }
 
-    , forNumericStatement: function(variable, start, end, step, body) {
+    , forNumericStatement: function (variable, start, end, step, body) {
       return {
-          type: 'ForNumericStatement'
+        type: 'ForNumericStatement'
         , variable: variable
         , start: start
         , end: end
@@ -354,135 +355,135 @@
       };
     }
 
-    , forGenericStatement: function(variables, iterators, body) {
+    , forGenericStatement: function (variables, iterators, body) {
       return {
-          type: 'ForGenericStatement'
+        type: 'ForGenericStatement'
         , variables: variables
         , iterators: iterators
         , body: body
       };
     }
 
-    , chunk: function(body) {
+    , chunk: function (body) {
       return {
-          type: 'Chunk'
+        type: 'Chunk'
         , body: body
       };
     }
 
-    , identifier: function(name) {
+    , identifier: function (name) {
       return {
-          type: 'Identifier'
+        type: 'Identifier'
         , name: name
       };
     }
 
-    , literal: function(type, value, raw) {
+    , literal: function (type, value, raw) {
       type = (type === StringLiteral) ? 'StringLiteral'
         : (type === NumericLiteral) ? 'NumericLiteral'
-        : (type === BooleanLiteral) ? 'BooleanLiteral'
-        : (type === NilLiteral) ? 'NilLiteral'
-        : 'VarargLiteral';
+          : (type === BooleanLiteral) ? 'BooleanLiteral'
+            : (type === NilLiteral) ? 'NilLiteral'
+              : 'VarargLiteral';
 
       return {
-          type: type
+        type: type
         , value: value
         , raw: raw
       };
     }
 
-    , tableKey: function(key, value) {
+    , tableKey: function (key, value) {
       return {
-          type: 'TableKey'
+        type: 'TableKey'
         , key: key
         , value: value
       };
     }
-    , tableKeyString: function(key, value) {
+    , tableKeyString: function (key, value) {
       return {
-          type: 'TableKeyString'
+        type: 'TableKeyString'
         , key: key
         , value: value
       };
     }
-    , tableValue: function(value) {
+    , tableValue: function (value) {
       return {
-          type: 'TableValue'
+        type: 'TableValue'
         , value: value
       };
     }
 
 
-    , tableConstructorExpression: function(fields) {
+    , tableConstructorExpression: function (fields) {
       return {
-          type: 'TableConstructorExpression'
+        type: 'TableConstructorExpression'
         , fields: fields
       };
     }
-    , binaryExpression: function(operator, left, right) {
+    , binaryExpression: function (operator, left, right) {
       var type = ('and' === operator || 'or' === operator) ?
         'LogicalExpression' :
         'BinaryExpression';
 
       return {
-          type: type
+        type: type
         , operator: operator
         , left: left
         , right: right
       };
     }
-    , unaryExpression: function(operator, argument) {
+    , unaryExpression: function (operator, argument) {
       return {
-          type: 'UnaryExpression'
+        type: 'UnaryExpression'
         , operator: operator
         , argument: argument
       };
     }
-    , memberExpression: function(base, indexer, identifier) {
+    , memberExpression: function (base, indexer, identifier) {
       return {
-          type: 'MemberExpression'
+        type: 'MemberExpression'
         , indexer: indexer
         , identifier: identifier
         , base: base
       };
     }
 
-    , indexExpression: function(base, index) {
+    , indexExpression: function (base, index) {
       return {
-          type: 'IndexExpression'
+        type: 'IndexExpression'
         , base: base
         , index: index
       };
     }
 
-    , callExpression: function(base, args) {
+    , callExpression: function (base, args) {
       return {
-          type: 'CallExpression'
+        type: 'CallExpression'
         , base: base
         , 'arguments': args
       };
     }
 
-    , tableCallExpression: function(base, args) {
+    , tableCallExpression: function (base, args) {
       return {
-          type: 'TableCallExpression'
+        type: 'TableCallExpression'
         , base: base
         , 'arguments': args
         , argument: args
       };
     }
 
-    , stringCallExpression: function(base, argument) {
+    , stringCallExpression: function (base, argument) {
       return {
-          type: 'StringCallExpression'
+        type: 'StringCallExpression'
         , base: base
         , argument: argument
       };
     }
 
-    , comment: function(value, raw) {
+    , comment: function (value, raw) {
       return {
-          type: 'Comment'
+        type: 'Comment'
         , value: value
         , raw: raw
       };
@@ -660,12 +661,12 @@
     if ('undefined' !== typeof found.type) {
       var type;
       switch (found.type) {
-        case StringLiteral:   type = 'string';      break;
-        case Keyword:         type = 'keyword';     break;
-        case Identifier:      type = 'identifier';  break;
-        case NumericLiteral:  type = 'number';      break;
-        case Punctuator:      type = 'symbol';      break;
-        case BooleanLiteral:  type = 'boolean';     break;
+        case StringLiteral: type = 'string'; break;
+        case Keyword: type = 'keyword'; break;
+        case Identifier: type = 'identifier'; break;
+        case NumericLiteral: type = 'number'; break;
+        case Punctuator: type = 'symbol'; break;
+        case BooleanLiteral: type = 'boolean'; break;
         case NilLiteral:
           return raise(found, errors.unexpected, 'symbol', 'nil', near);
         case EOF:
@@ -698,11 +699,14 @@
   var index
     , token
     , previousToken
+    , previousTokens = []
     , lookahead
     , comments
     , tokenStart
     , line
     , lineStart;
+
+  // var compoundLookup = ["+", "-", "*", "/", "%", "^", ".."]
 
   exports.lex = lex;
 
@@ -711,12 +715,12 @@
 
     // Skip comments beginning with --
     while (45 === input.charCodeAt(index) &&
-           45 === input.charCodeAt(index + 1)) {
+      45 === input.charCodeAt(index + 1)) {
       scanComment();
       skipWhiteSpace();
     }
     if (index >= length) return {
-        type : EOF
+      type: EOF
       , value: '<eof>'
       , line: line
       , lineStart: lineStart
@@ -789,7 +793,7 @@
         if (!features.bitwiseOperators)
           break;
 
-        /* fall through */
+      /* fall through */
       case 42: case 94: case 37: case 44: case 123: case 125:
       case 93: case 40: case 41: case 59: case 35: case 45:
       case 43: // * ^ % , { } ] ( ) ; # - +
@@ -856,7 +860,7 @@
     }
 
     return {
-        type: type
+      type: type
       , value: value
       , line: line
       , lineStart: lineStart
@@ -870,7 +874,7 @@
   function scanPunctuator(value) {
     index += value.length;
     return {
-        type: Punctuator
+      type: Punctuator
       , value: value
       , line: line
       , lineStart: lineStart
@@ -883,7 +887,7 @@
   function scanVarargLiteral() {
     index += 3;
     return {
-        type: VarargLiteral
+      type: VarargLiteral
       , value: '...'
       , line: line
       , lineStart: lineStart
@@ -901,7 +905,7 @@
       , string = encodingMode.discardStrings ? null : ''
       , charCode;
 
-    for (;;) {
+    for (; ;) {
       charCode = input.charCodeAt(index++);
       if (delimiter === charCode) break;
       // EOF or `\n` terminates a string literal. If we haven't found the
@@ -927,7 +931,7 @@
     }
 
     return {
-        type: StringLiteral
+      type: StringLiteral
       , value: string
       , line: beginLine
       , lineStart: beginLineStart
@@ -949,7 +953,7 @@
     if (false === string) raise(token, errors.expected, '[', tokenValue(token));
 
     return {
-        type: StringLiteral
+      type: StringLiteral
       , value: encodingMode.discardStrings ? null : encodingMode.fixup(string)
       , line: beginLine
       , lineStart: beginLineStart
@@ -980,7 +984,7 @@
     }
 
     return {
-        type: NumericLiteral
+      type: NumericLiteral
       , value: literal.value
       , line: line
       , lineStart: lineStart
@@ -1023,14 +1027,14 @@
         raise(null, errors.malformedNumber, input.slice(tokenStart, index));
       }
     } else if ('lL'.indexOf(input.charAt(index) || null) >= 0) {
+      ++index;
+      if ('lL'.indexOf(input.charAt(index) || null) >= 0) {
         ++index;
-        if ('lL'.indexOf(input.charAt(index) || null) >= 0) {
-          ++index;
-          return 'LL';
-        } else {
-          // First L but no second L
-          raise(null, errors.malformedNumber, input.slice(tokenStart, index));
-        }
+        return 'LL';
+      } else {
+        // First L but no second L
+        raise(null, errors.malformedNumber, input.slice(tokenStart, index));
+      }
     }
   }
 
@@ -1219,7 +1223,7 @@
         if (features.hexEscapes) {
           // \xXX, where XX is a sequence of exactly two hexadecimal digits
           if (isHexDigit(input.charCodeAt(index + 1)) &&
-              isHexDigit(input.charCodeAt(index + 2))) {
+            isHexDigit(input.charCodeAt(index + 2))) {
             index += 3;
             return encodingMode.encodeByte(parseInt(input.slice(sequenceStart + 1, index), 16), '\\' + input.slice(sequenceStart, index));
           }
@@ -1280,7 +1284,7 @@
       // intercepted in the lexer all location data is set manually.
       if (options.locations) {
         node.loc = {
-            start: { line: lineComment, column: tokenStart - lineStartComment }
+          start: { line: lineComment, column: tokenStart - lineStartComment }
           , end: { line: line, column: index - lineStart }
         };
       }
@@ -1340,9 +1344,9 @@
     }
 
     raise(null, isComment ?
-                errors.unfinishedLongComment :
-                errors.unfinishedLongString,
-          firstLine, '<eof>');
+      errors.unfinishedLongComment :
+      errors.unfinishedLongString,
+      firstLine, '<eof>');
   }
 
   // ## Lex functions and helpers.
@@ -1353,8 +1357,10 @@
   // reading in the new lookahead token.
 
   function next() {
+    if (previousTokens.length >= 5) previousTokens.pop()
     previousToken = token;
     token = lookahead;
+    previousTokens.unshift(token)
     lookahead = lex();
   }
 
@@ -1529,12 +1535,12 @@
   function Marker(token) {
     if (options.locations) {
       this.loc = {
-          start: {
-            line: token.line
+        start: {
+          line: token.line
           , column: token.range[0] - token.lineStart
         }
         , end: {
-            line: 0
+          line: 0
           , column: 0
         }
       };
@@ -1544,7 +1550,7 @@
 
   // Complete the location data stored in the `Marker` by adding the location
   // of the *previous token* as an end location.
-  Marker.prototype.complete = function() {
+  Marker.prototype.complete = function () {
     if (options.locations) {
       this.loc.end.line = previousToken.lastLine || previousToken.line;
       this.loc.end.column = previousToken.range[1] - (previousToken.lastLineStart || previousToken.lineStart);
@@ -1597,7 +1603,7 @@
 
   FullFlowContext.prototype.isInLoop = function () {
     var i = this.scopes.length;
-    while (i --> 0) {
+    while (i-- > 0) {
       if (this.scopes[i].isLoop)
         return true;
     }
@@ -1724,13 +1730,13 @@
   };
 
   LoopFlowContext.prototype.addGoto =
-  LoopFlowContext.prototype.addLabel =
-  /* istanbul ignore next */
-  function () { throw new Error('This should never happen'); };
+    LoopFlowContext.prototype.addLabel =
+    /* istanbul ignore next */
+    function () { throw new Error('This should never happen'); };
 
   LoopFlowContext.prototype.addLocal =
-  LoopFlowContext.prototype.raiseDeferredErrors =
-  function () {};
+    LoopFlowContext.prototype.raiseDeferredErrors =
+    function () { };
 
   function makeFlowContext() {
     return features.labels ? new FullFlowContext() : new LoopFlowContext();
@@ -1811,37 +1817,36 @@
 
     if (Keyword === token.type) {
       switch (token.value) {
-        case 'local':    next(); return parseLocalStatement(flowContext);
-        case 'if':       next(); return parseIfStatement(flowContext);
-        case 'return':   next(); return parseReturnStatement(flowContext);
+        case 'local': next(); return parseLocalStatement(flowContext);
+        case 'if': next(); return parseIfStatement(flowContext);
+        case 'return': next(); return parseReturnStatement(flowContext);
         case 'function': next();
           var name = parseFunctionName();
           return parseFunctionDeclaration(name);
-        case 'while':    next(); return parseWhileStatement(flowContext);
-        case 'for':      next(); return parseForStatement(flowContext);
-        case 'repeat':   next(); return parseRepeatStatement(flowContext);
-        case 'break':    next();
+        case 'while': next(); return parseWhileStatement(flowContext);
+        case 'for': next(); return parseForStatement(flowContext);
+        case 'repeat': next(); return parseRepeatStatement(flowContext);
+        case 'break': next();
           if (!flowContext.isInLoop())
             raise(token, errors.noLoopToBreak, token.value);
           return parseBreakStatement();
-        case 'continue':    next();
+        case 'continue': next();
           if (!flowContext.isInLoop())
             raise(token, errors.noLoopToContinue, token.value);
           return parseContinueStatement();
-        case 'do':       next(); return parseDoStatement(flowContext);
-        case 'goto':     next(); return parseGotoStatement(flowContext);
+        case 'do': next(); return parseDoStatement(flowContext);
+        case 'goto': next(); return parseGotoStatement(flowContext);
       }
     }
 
     if (features.contextualGoto &&
-        token.type === Identifier && token.value === 'goto' &&
-        lookahead.type === Identifier && lookahead.value !== 'goto') {
+      token.type === Identifier && token.value === 'goto' &&
+      lookahead.type === Identifier && lookahead.value !== 'goto') {
       next(); return parseGotoStatement(flowContext);
     }
 
     // Assignments memorizes the location and pushes it manually for wrapper nodes.
     if (trackLocations) locations.pop();
-
     return parseAssignmentOrCallStatement(flowContext);
   }
 
@@ -2164,24 +2169,23 @@
         return unexpected(token);
       }
 
-      both: for (;;) {
+      both: for (; ;) {
         var newBase;
 
         switch (StringLiteral === token.type ? '"' : token.value) {
-        case '.':
-        case '[':
-          lvalue = true;
-          break;
-        case ':':
-        case '(':
-        case '{':
-        case '"':
-          lvalue = null;
-          break;
-        default:
-          break both;
+          case '.':
+          case '[':
+            lvalue = true;
+            break;
+          case ':':
+          case '(':
+          case '{':
+          case '"':
+            lvalue = null;
+            break;
+          default:
+            break both;
         }
-
         base = parsePrefixExpressionPart(base, marker, flowContext);
       }
 
@@ -2204,7 +2208,10 @@
       return unexpected(token);
     }
 
-    expect('=');
+    flowContext.compoundAssignment = [consume("+"), consume("-"), consume("*"), consume("/"), consume("%"), consume("^"), (consume(".") && consume("."))]
+    flowContext.compound = 0
+
+    expect('=')
 
     var values = [];
 
@@ -2412,8 +2419,8 @@
         case 47: return 10; // //
         case 46: return 8; // ..
         case 60: case 62:
-            if('<<' === operator || '>>' === operator) return 7; // << >>
-            return 3; // <= >=
+          if ('<<' === operator || '>>' === operator) return 7; // << >>
+          return 3; // <= >=
         case 61: case 126: return 3; // == ~=
         case 111: return 1; // or
       }
@@ -2432,8 +2439,17 @@
 
   function parseSubExpression(minPrecedence, flowContext) {
     var operator = token.value
-    // The left-hand side in binary operations.
+      // The left-hand side in binary operations.
       , expression, marker;
+
+    let index = flowContext.compoundAssignment.indexOf(true)
+    if (index != -1) {
+      if (flowContext.compound === 0) {
+        flowContext.savedTokens = [...previousTokens]
+        token = flowContext.savedTokens[3]
+      }
+      flowContext.compound++
+    }
 
     if (trackLocations) marker = createLocationMarker();
 
@@ -2459,6 +2475,7 @@
 
     var precedence;
     while (true) {
+      if (index != -1 && flowContext.compound == 1) token = flowContext.savedTokens[2] 
       operator = token.value;
 
       precedence = (Punctuator === token.type || Keyword === token.type) ?
@@ -2467,14 +2484,16 @@
       if (precedence === 0 || precedence <= minPrecedence) break;
       // Right-hand precedence operators
       if ('^' === operator || '..' === operator) --precedence;
-      next();
+      if (index == -1) next();
+      else token = flowContext.savedTokens[0]
       var right = parseSubExpression(precedence, flowContext);
+
       if (null == right) raiseUnexpectedToken('<expression>', token);
       // Push in the marker created before the loop to wrap its entirety.
       if (trackLocations) locations.push(marker);
       expression = finishNode(ast.binaryExpression(operator, expression, right));
-
     }
+    if (index != -1) next()
     return expression;
   }
 
@@ -2540,7 +2559,7 @@
     }
 
     // The suffix
-    for (;;) {
+    for (; ;) {
       var newBase = parsePrefixExpressionPart(base, marker, flowContext);
       if (newBase === null)
         break;
@@ -2605,7 +2624,7 @@
     if (type & literals) {
       pushLocation(marker);
       var raw = input.slice(token.range[0], token.range[1]);
-      next();
+      if (flowContext.compoundAssignment.indexOf(true) == -1) next();
       return finishNode(ast.literal(type, value, raw));
     } else if (Keyword === type && 'function' === value) {
       pushLocation(marker);
