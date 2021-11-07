@@ -2442,7 +2442,7 @@
       // The left-hand side in binary operations.
       , expression, marker;
 
-    let index = flowContext.compoundAssignment.indexOf(true)
+    let index = flowContext.compoundAssignment ? flowContext.compoundAssignment.indexOf(true) : -1
     if (index != -1) {
       if (flowContext.compound === 0) {
         flowContext.savedTokens = [...previousTokens]
@@ -2624,7 +2624,7 @@
     if (type & literals) {
       pushLocation(marker);
       var raw = input.slice(token.range[0], token.range[1]);
-      if (flowContext.compoundAssignment.indexOf(true) == -1) next();
+      if (!flowContext.compoundAssignment || flowContext.compoundAssignment.indexOf(true) == -1) next();
       return finishNode(ast.literal(type, value, raw));
     } else if (Keyword === type && 'function' === value) {
       pushLocation(marker);
