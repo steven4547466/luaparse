@@ -2208,7 +2208,7 @@
       return unexpected(token);
     }
 
-    flowContext.compoundAssignment = [consume("+"), consume("-"), consume("*"), consume("/"), consume("%"), consume("^"), (consume(".") && consume("."))]
+    flowContext.compoundAssignment = [consume("+"), consume("-"), consume("*"), consume("/"), consume("%"), consume("^"), consume("..")]
     flowContext.compound = 0
 
     expect('=')
